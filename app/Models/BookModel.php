@@ -13,6 +13,20 @@ class BookModel extends Model
     protected $insertID         = 0;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
-    protected $protectFields    = false;
-    protected $allowedFields    = [];
+    protected $protectFields    = true;
+    protected $allowedFields    = [
+    'genre_id',
+    'judul_buku',
+    'penulis',
+    'kode_isbn',
+    'deskripsi_buku',
+    'gambar'];
+
+    public function getGenre()
+    {
+
+      // SELECT * FROM books JOIN genres ON books.id = genres.id;
+
+      return $this->db->table('books')->join('genres', 'books.id = genres.id')->get()->getResultArray();
+    }
 }
