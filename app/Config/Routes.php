@@ -31,7 +31,15 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 
-$routes->view('admin/', 'admin/beranda_admin');
+$routes->view('admin/', 'admin/beranda_admin', ['filter' => 'session']);
+
+$routes->get('/admin/genre', 'GenreController::index', ['filter' => 'session']);
+$routes->match(['get', 'post'], '/admin/genre/tambah', 'GenreController::store', ['filter' => 'session']);
+
+$routes->get('/admin/buku', 'BookController::index', ['filter' => 'session']);
+$routes->match(['get', 'post'], '/admin/buku/tambah', 'BookController::store', ['filter' => 'session']);
+
+service('auth')->routes($routes);
 /*
  * --------------------------------------------------------------------
  * Additional Routing
